@@ -127,9 +127,9 @@ This script will:
 
 ```
 search-engine-workshop/
-├── scrapper/               # Kompas.com news scraper
-│   ├── kompas_spider.py   # Scrapy spider for news collection
-│   └── README.md          # Scraper documentation
+├── scrapper/               # Kompas.com news crawler
+│   ├── direct_crawler.py  # News crawler for Kompas.com
+│   └── README.md          # Crawler documentation
 ├── playground.ipynb        # Main workshop notebook with examples
 ├── main.py                 # Simple Python entry point
 ├── pyproject.toml          # Project dependencies and configuration
@@ -138,18 +138,23 @@ search-engine-workshop/
 └── start.sh                # Quick start automation script
 ```
 
-## News Scraper
+## News Crawler
 
-The project includes a web scraper for collecting Indonesian news articles from Kompas.com. The scraper collects articles from 10 different topics:
+The project includes a web crawler for collecting Indonesian news articles from Kompas.com. The crawler collects articles from 9 different topics:
 
-**Topics**: Trending, Tekno, Otomotif, Bola, Lifestyle, Health, Money, Properti, Edukasi, Travel
+**Topics**: Tekno, Otomotif, Bola, Lifestyle, Health, Money, Properti, Edukasi, Travel
 
-**Run the scraper:**
+**Run the crawler:**
 ```bash
-uv run python scrapper/kompas_spider.py
+uv run python scrapper/direct_crawler.py
 ```
 
-The scraper will collect up to 1000 articles and save them to `documents.json`. See `scrapper/README.md` for more details.
+The crawler will:
+- Fetch approximately 70-100 articles (10 per topic)
+- Show real-time progress with status indicators
+- Save full article content to `documents.json`
+
+See `scrapper/README.md` for configuration options.
 
 ## Workshop Content
 
