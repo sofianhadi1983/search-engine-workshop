@@ -127,13 +127,29 @@ This script will:
 
 ```
 search-engine-workshop/
-├── playground.ipynb         # Main workshop notebook with examples
-├── main.py                  # Simple Python entry point
+├── scrapper/               # Kompas.com news scraper
+│   ├── kompas_spider.py   # Scrapy spider for news collection
+│   └── README.md          # Scraper documentation
+├── playground.ipynb        # Main workshop notebook with examples
+├── main.py                 # Simple Python entry point
 ├── pyproject.toml          # Project dependencies and configuration
 ├── uv.lock                 # Locked dependency versions
 ├── .python-version         # Python version specification (3.12.1)
 └── start.sh                # Quick start automation script
 ```
+
+## News Scraper
+
+The project includes a web scraper for collecting Indonesian news articles from Kompas.com. The scraper collects articles from 10 different topics:
+
+**Topics**: Trending, Tekno, Otomotif, Bola, Lifestyle, Health, Money, Properti, Edukasi, Travel
+
+**Run the scraper:**
+```bash
+uv run python scrapper/kompas_spider.py
+```
+
+The scraper will collect up to 1000 articles and save them to `documents.json`. See `scrapper/README.md` for more details.
 
 ## Workshop Content
 
