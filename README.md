@@ -47,12 +47,24 @@ GitHub Codespaces provides a complete development environment in your browser.
 
 **Step 2: Install UV**
 
-UV is a fast Python package manager that replaces pip. It's written in Rust and is significantly faster than traditional pip.
+UV is an extremely fast Python package installer and resolver written in Rust. It's a drop-in replacement for pip and pip-tools that can be 10-100x faster.
+
+**Why UV?**
+- Speed: 10-100x faster than pip
+- Reproducibility: `uv.lock` ensures consistent installs across different environments
+- Simplicity: Single command for most operations
+- Disk efficient: Smart caching of packages
+- Drop-in replacement: Works with existing pip workflows
 
 Open the terminal in Codespaces and run:
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+Alternative installation using pip:
+```bash
+pip install uv
 ```
 
 After installation, restart your terminal or run:
@@ -120,8 +132,7 @@ search-engine-workshop/
 ├── pyproject.toml          # Project dependencies and configuration
 ├── uv.lock                 # Locked dependency versions
 ├── .python-version         # Python version specification (3.12.1)
-├── start.sh                # Quick start automation script
-└── UV_SETUP_TUTORIAL.md    # Detailed UV setup guide
+└── start.sh                # Quick start automation script
 ```
 
 ## Workshop Content
@@ -148,31 +159,35 @@ The `playground.ipynb` notebook contains:
 
 UV is the package manager for this project. Here are common commands:
 
-**Installing packages:**
+### Command Cheat Sheet
+
+| Task | Command |
+|------|---------|
+| Install all dependencies | `uv sync` |
+| Add dependency | `uv add package-name` |
+| Remove dependency | `uv remove package-name` |
+| Update dependencies | `uv lock --upgrade` |
+| Run Python script | `uv run python script.py` |
+| Run Jupyter | `uv run jupyter notebook` |
+| Run any command in venv | `uv run command` |
+| List installed packages | `uv pip list` |
+| Pin Python version | `uv python pin 3.12.1` |
+
+### Virtual Environment
+
+UV automatically creates and manages a virtual environment in `.venv/`. You can activate it manually if needed:
+
+**On macOS/Linux:**
 ```bash
-uv add package-name
+source .venv/bin/activate
 ```
 
-**Removing packages:**
+**On Windows:**
 ```bash
-uv remove package-name
+.venv\Scripts\activate
 ```
 
-**Updating dependencies:**
-```bash
-uv lock --upgrade
-uv sync
-```
-
-**Running Python scripts:**
-```bash
-uv run python script.py
-```
-
-**Listing installed packages:**
-```bash
-uv pip list
-```
+However, it's recommended to use `uv run` commands instead, which automatically use the project's environment.
 
 ## Local Development (Outside Codespaces)
 
@@ -204,6 +219,8 @@ After completing this workshop, you'll be ready to:
 ## Resources
 
 - UV Documentation: https://docs.astral.sh/uv/
+- UV GitHub: https://github.com/astral-sh/uv
+- Python Packaging Guide: https://packaging.python.org/
 - Scikit-learn Text Feature Extraction: https://scikit-learn.org/stable/modules/feature_extraction.html
 - DataTalks.Club: https://datatalks.club/
 
@@ -211,11 +228,26 @@ After completing this workshop, you'll be ready to:
 
 **Issue: UV command not found after installation**
 
-Solution: Restart your terminal or run `source $HOME/.cargo/env`
+Solution: Restart your terminal or run:
+```bash
+source $HOME/.cargo/env
+```
 
 **Issue: Wrong Python version**
 
-Solution: Run `uv python pin 3.12.1` then `uv sync`
+Solution:
+```bash
+uv python pin 3.12.1
+uv sync
+```
+
+**Issue: Dependencies conflict**
+
+Solution:
+```bash
+uv lock --upgrade
+uv sync
+```
 
 **Issue: Jupyter kernel not found**
 
